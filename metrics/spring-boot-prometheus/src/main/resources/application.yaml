@@ -1,0 +1,13 @@
+server:
+  port: 9700
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+account:
+  data:
+    files.path: @project.basedir@/../../data/
+    address.filename: address.json

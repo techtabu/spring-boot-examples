@@ -1,0 +1,6 @@
+[
+  {"id": 2001, "number": "5522-6655-8855-9966", "type": "VISA", "accountNumber": "account-002"},
+  {"id": 2002, "number": "5522-6655-8855-9966", "type": "MASTER_CARD", "accountNumber": "account-001"},
+  {"id": 2003, "number": "5522-4455-6534-7865", "type": "AMERICAN_EXPRESS", "accountNumber": "account-002"},
+  {"id": 2004, "number": "4325-3245-2345-6547", "type": "VISA", "accountNumber": "account-001"}
+]

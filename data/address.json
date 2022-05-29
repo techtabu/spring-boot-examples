@@ -1,0 +1,8 @@
+[
+  {"id": 1001, "street1": "142 Main Road", "city": "Panama City", "state": "FL", "zipCode": 32405, "country": "USA", "addressType": "SHIPPING", "accountNumber": "account-002"},
+  {"id": 1002, "street1": "142 Main Road", "city": "Panama City", "state": "FL", "zipCode": 32405, "country": "USA", "addressType": "BILLING", "accountNumber": "account-002"},
+  {"id": 1003, "street1": "142 Side Road", "city": "Lynn Haven", "state": "FL", "zipCode": 32444, "country": "USA", "addressType": "SHIPPING", "accountNumber": "account-001"},
+  {"id": 1004, "street1": "142 Side Road", "city": "Lynn Haven", "state": "FL", "zipCode": 32444, "country": "USA", "addressType": "BILLING", "accountNumber": "account-001"},
+  {"id": 1005, "street1": "334 Wales Drive", "city": "Tallhassee", "state": "FL", "zipCode": 32301, "country": "USA", "addressType": "SHIPPING", "accountNumber": "account-001"},
+  {"id": 1006, "street1": "1546 Luther King Dr", "city": "Jacksonville", "state": "FL", "zipCode": 32227, "country": "USA", "addressType": "BILLING", "accountNumber": "account-001"}
+]
