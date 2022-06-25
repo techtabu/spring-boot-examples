@@ -1,0 +1,23 @@
+server:
+  port: 9750
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: springboot-with-keycloak
+            client-secret: BcgSKaGE9iyYawlGPwAFjSu56ySAl9o5
+            provider: keycloak
+            client-name: GatewayKeycloak
+            authorization-grant-type: authorization_code
+            #            redirect-uri: http://localhost:9700/login/oauth2/gateway-keyloak-security
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8090/realms/techtabu
+            authorization-uri: http://localhost:8090/realms/techtabu/protocol/openid-connect/auth
+            token-uri: http://localhost:8090/realms/techtabu/protocol/openid-connect/token
+            user-info-uri: http://localhost:8090/realms/techtabu/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8090/realms/techtabu/protocol/openid-connect/certs

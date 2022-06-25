@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -9,11 +10,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>spring-boot-prometheus</artifactId>
-    <groupId>techtabu.springboot.metrics</groupId>
-    <version>0.1-0-SNAPSHOT</version>
-    <name>spring-metrics-prometheus</name>
-    <description>spring-boot-prometheus</description>
+    <groupId>techtabu.springboot.security</groupId>
+    <artifactId>oidc-client-with-keycloak</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>OIDC client with keycloak</name>
+    <description>OIDC client with keycloak</description>
+
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -24,23 +26,24 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-            <scope>runtime</scope>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
