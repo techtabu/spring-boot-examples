@@ -7,3 +7,4 @@ project code: sbe
 | parent   | techtabu.springboot.examples |
 | metrics  | techtabu.springboot.metrics  |
 | security | techtabu.springboot.security |
+| web      | techtabu.springboot.web      |
