@@ -32,10 +32,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors().and().csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-//                        .mvcMatchers("/admin/**").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.POST).hasRole("ADMIN")
-                        .antMatchers(HttpMethod.GET).hasAnyRole("ADMIN", "USER")
+                        .antMatchers(HttpMethod.POST).hasRole("APP_ADMIN")
+                        .antMatchers(HttpMethod.GET).hasAnyRole("APP_ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(withDefaults());

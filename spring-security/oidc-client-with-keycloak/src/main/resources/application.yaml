@@ -21,3 +21,8 @@ spring:
             token-uri: http://localhost:8090/realms/techtabu/protocol/openid-connect/token
             user-info-uri: http://localhost:8090/realms/techtabu/protocol/openid-connect/userinfo
             jwk-set-uri: http://localhost:8090/realms/techtabu/protocol/openid-connect/certs
+
+logging:
+  level:
+    root: info
+    org.springframework.security: TRACE

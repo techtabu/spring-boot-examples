@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author TechTabu
@@ -18,8 +19,8 @@ import java.util.List;
 public class CustomerController {
 
     private List<Customer> customers = new ArrayList<>(Arrays.asList(
-            new Customer("Tabu", "New York", ""),
-            new Customer("Shalu", "Miami", "")
+            new Customer(1, "Tabu", "Dev", "tabu@gmail.com", ""),
+            new Customer(2, "Shalu", "Tabu", "shalu@gmal.com", "")
     ));
 
     @GetMapping
@@ -32,6 +33,7 @@ public class CustomerController {
 
     @PostMapping
     public Customer addCustomer(@RequestBody Customer customer) {
+        customer.setId(new Random().nextInt(100000));
         this.customers.add(customer);
         log.info("{} is added", customer);
         return customer;
