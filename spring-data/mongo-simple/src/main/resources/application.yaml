@@ -1,0 +1,18 @@
+server:
+  port: 9874
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongodb:mongodb@localhost:27017
+      database: store_orders
+#      username: mongodb
+#      password: mongodb
+
+data:
+  initialize: false
+
+logging:
+  level:
+    root: info
+    org.springframework.data.mongodb: DEBUG
