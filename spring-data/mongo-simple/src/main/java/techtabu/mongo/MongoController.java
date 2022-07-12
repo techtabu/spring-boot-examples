@@ -18,11 +18,14 @@ public class MongoController {
 
     private final InvoiceRepository invoiceRepository;
     private final CustomInvoiceRepository customInvoiceRepository;
+    private final MongoDataFactoryService mongoDataFactoryService;
 
     public MongoController(InvoiceRepository invoiceRepository,
-                           CustomInvoiceRepository customInvoiceRepository) {
+                           CustomInvoiceRepository customInvoiceRepository,
+                           MongoDataFactoryService mongoDataFactoryService) {
         this.invoiceRepository = invoiceRepository;
         this.customInvoiceRepository = customInvoiceRepository;
+        this.mongoDataFactoryService = mongoDataFactoryService;
     }
 
     @GetMapping
@@ -69,5 +72,10 @@ public class MongoController {
         log.info("invoice is updated: {}", invoice);
 
         return invoice;
+    }
+
+    @GetMapping("/mongo-data-factory")
+    public void doSomething() {
+        mongoDataFactoryService.findAllDocuments();
     }
 }

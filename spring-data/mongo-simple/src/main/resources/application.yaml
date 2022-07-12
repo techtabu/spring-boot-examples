@@ -10,7 +10,7 @@ spring:
 #      password: mongodb
 
 data:
-  initialize: false
+  initialize: true
 
 logging:
   level:

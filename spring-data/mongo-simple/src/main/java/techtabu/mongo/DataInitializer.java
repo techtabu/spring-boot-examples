@@ -21,6 +21,7 @@ public class DataInitializer {
 
     public void populateData() {
         log.info("initializing data in db..");
+        invoiceRepository.deleteAll();
         Address ad1 = Address.builder().street1("141 Main Road").city("Kansas City").state("KS").country("USA").zipCode(34453).build();
         Address ad2 = Address.builder().street1("147 Main Road").city("Kansas City").state("KS").country("USA").zipCode(34453).build();
         Address ad3 = Address.builder().street1("147 Main Road").city("Savanna").state("GA").country("USA").zipCode(78558).build();
