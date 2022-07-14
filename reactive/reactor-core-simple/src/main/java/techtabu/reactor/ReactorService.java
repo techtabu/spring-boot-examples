@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
- * @author tabuthevarajan
+ * @author TechTabu
  */
 
 @Service
@@ -28,5 +28,10 @@ public class ReactorService {
         })
         .sample(Duration.ofMillis(timeInMillies)) // this will be like sleep, and will provide data at every 500 ms only.
         .publish();
+    }
+
+    public Flux<String> getElementsWithDelay(long interval) {
+        return Flux.just("the", "quick", "brown", "fox")
+                .delayElements(Duration.ofMillis(interval));
     }
 }

@@ -1,0 +1,15 @@
+server:
+  port: 9875
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongodb:mongodb@localhost:27017
+      database: customers
+
+
+logging:
+  level:
+    root: info
+    org.springframework.data.mongodb: DEBUG
+    org.springframework.data.mongodb.core.ReactiveMongoTemplate: DEBUG

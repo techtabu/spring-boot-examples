@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.SignalType;
 import reactor.core.scheduler.Schedulers;
 import reactor.test.StepVerifier;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * @author tabuthevarajan
+ * @author TechTabu
  */
 
 @SpringBootTest
@@ -35,6 +35,7 @@ public class ReactorServiceTest {
                     results.add(w);
                 });
         log.info("Resulted strings: {}", results);
+        // output
         // Resulted strings: [the, quick, brown, fox, jumped, over, the, lazy, dog]
         assertThat(results).containsExactly("the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog");
     }
@@ -50,8 +51,11 @@ public class ReactorServiceTest {
                     results.add(w);
                 });
         log.info("Resulted strings: {}", results);
-        // Resulted strings: [the, quick, brown, fox, jumped, over, the, lazy, dog]
-//        assertThat(results).containsExactly("the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog");
+        // output
+        // Resulted strings: []
+
+        // you won't see any in output, because parallel will run in separate thread while letting the
+        // main thread go on in its business as usual.
     }
 
     @Test
@@ -83,5 +87,21 @@ public class ReactorServiceTest {
         });
         pub2.connect();
 
+    }
+
+    @Test
+    public void testGetElementsWithDelay() {
+        log.info(" \n\n *** testing testGetElementsWithDelay *** \n\n");
+
+        int nano = StepVerifier.create(reactorService.getElementsWithDelay(100))
+                    .expectNext("the")
+                    .expectNext("quick")
+                    .expectNext("brown")
+                    .expectNext("fox")
+                    .verifyComplete()
+                    .getNano();
+        log.info("Took {} nano seconds with delay", nano);
+
+        assertThat(nano).isGreaterThan(400000000);
     }
 }
