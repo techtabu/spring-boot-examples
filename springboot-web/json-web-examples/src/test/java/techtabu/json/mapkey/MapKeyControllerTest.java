@@ -28,4 +28,12 @@ public class MapKeyControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testGetAllBySerializer() throws Exception {
+        log.info("Testing testGetAllBySerializer");
+        this.mockMvc.perform(get("/mapkey/byserializer"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }

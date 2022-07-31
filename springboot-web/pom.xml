@@ -15,6 +15,7 @@
 
     <modules>
         <module>web-with-vue-page</module>
+        <module>json-web-examples</module>
     </modules>
 
     <build>
