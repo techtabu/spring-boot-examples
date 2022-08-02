@@ -20,7 +20,7 @@ public class PersonKeyWithJSerializer extends JsonSerializer<PersonKeyWithJ> {
                           JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
         StringWriter writer = new StringWriter();
-        mapper.writeValue(writer, value.convertToKey());
+        mapper.writeValue(writer, value);
         jsonGenerator.writeFieldName(writer.toString());
     }
 }
