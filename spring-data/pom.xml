@@ -8,6 +8,11 @@
     <packaging>pom</packaging>
     <name>spring-data</name>
 
+    <modules>
+        <module>mongo-simple</module>
+        <module>jpa-pageable</module>
+    </modules>
+
     <build>
         <plugins>
             <plugin>

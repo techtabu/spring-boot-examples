@@ -1,0 +1,13 @@
+server:
+  port: 8875
+
+spring:
+  datasource:
+    url: jdbc:h2:file:./target/db/jpa_pageable;
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+
+data:
+  initialize: true
