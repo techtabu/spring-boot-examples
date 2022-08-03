@@ -1,2 +1,6 @@
 server:
   port: 9760
+logging:
+  level:
+    root: trace
+

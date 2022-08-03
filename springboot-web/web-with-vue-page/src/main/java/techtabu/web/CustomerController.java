@@ -18,26 +18,25 @@ import java.util.Random;
 @Slf4j
 public class CustomerController {
 
-    private List<Customer> customers = new ArrayList<>(Arrays.asList(
-            new Customer(1, "Tabu", "Dev", "tabu@gmail.com"),
-            new Customer(2, "Shalu", "Tabu", "shalu@gmal.com")
-    ));
+    private final CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping
     public List<Customer> getAll() {
-        return this.customers;
+        return customerService.getAll();
     }
 
     @GetMapping("/{id}")
     public Customer getCustomer(@PathVariable int id) {
-        return customers.stream().filter(c -> c.getId() == id).findAny().orElse(null);
+        return customerService.getCustomer(id);
     }
 
     @PostMapping
     public Customer addCustomer(@RequestBody Customer customer) {
-        int id = new Random().nextInt(100000);
-        customer.setId(id);
-        this.customers.add(customer);
+        customer = customerService.addCustomer(customer);
         return customer;
     }
 }
