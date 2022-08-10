@@ -1,0 +1,19 @@
+server:
+  port: 9874
+
+spring:
+  data:
+    mongodb:
+      database: store_orders
+      port: 27017
+  mongodb:
+    embedded:
+      version: 5.0.6
+
+data:
+  initialize: false
+
+logging:
+  level:
+    root: info
+    org.springframework.data.mongodb: DEBUG

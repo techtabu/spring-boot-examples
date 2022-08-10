@@ -31,7 +31,7 @@ So, as long as I keep the application simple and all packages under root package
 
 
 ## `MongoDatabaseFactory`
-To access MongoDB databases, you can inject an auto-configured org.springframework.data.mongodb.MongoDatabaseFactory. 
+To access MongoDB databases, you can inject an auto-configured `org.springframework.data.mongodb.MongoDatabaseFactory`. 
 By default, the instance tries to connect to a MongoDB server at mongodb://localhost/test.
 
 The thing is this access Mongo as some basic level, which means you won't be able to use advantages of high level
