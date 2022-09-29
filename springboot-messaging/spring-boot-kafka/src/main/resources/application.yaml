@@ -1,0 +1,17 @@
+server:
+  port: 9770
+
+spring:
+  application:
+    name: tabu-springboot-kafka
+  kafka:
+    bootstrap-servers: localhost:9092
+    streams:
+      application-id: ${spring.application.name}
+    consumer:
+      group-id: "kafka-group"
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      concurrency: 1
+      ack-mode: RECORD

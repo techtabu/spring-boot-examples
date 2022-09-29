@@ -15,6 +15,7 @@
         <module>springboot-web</module>
         <module>spring-data</module>
         <module>reactive</module>
+        <module>springboot-messaging</module>
     </modules>
 
     <build>
