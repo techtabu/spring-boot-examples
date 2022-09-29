@@ -1,0 +1,30 @@
+server:
+  port: 9771
+
+spring:
+  application:
+    name: tabu-springboot-kafka
+  kafka:
+    bootstrap-servers: localhost:9093
+#    security:
+#      protocol: SSL
+    ssl:
+      trust-store-location: classpath:certs/kafka.truststore.jks
+      trust-store-password: deadface11
+      key-store-location: classpath:certs/kafka.keystore.jks
+      key-store-password: deadface11
+      key-password: deadface11
+      protocol: SSL
+    streams:
+      application-id: ${spring.application.name}
+    consumer:
+      group-id: "kafka-group"
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      concurrency: 1
+      ack-mode: RECORD
+    properties:
+      ssl.endpoint.identification.algorithm:
+      security.protocol: SSL
+
