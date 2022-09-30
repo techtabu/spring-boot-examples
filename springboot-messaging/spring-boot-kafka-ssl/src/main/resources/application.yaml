@@ -14,7 +14,6 @@ spring:
       key-store-location: classpath:certs/kafka.keystore.jks
       key-store-password: deadface11
       key-password: deadface11
-      protocol: SSL
     streams:
       application-id: ${spring.application.name}
     consumer:

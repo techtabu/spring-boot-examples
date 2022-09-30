@@ -1,3 +1,0 @@
-# spring boot kafka ssl
-
-

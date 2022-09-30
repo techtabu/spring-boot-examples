@@ -1,0 +1,52 @@
+version: '3.9'
+
+networks:
+  mds-docker:
+    name: mds-docker
+
+
+services:
+
+  mds-zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: mds-zookeeper
+    hostname: mds-zookeeper
+    restart: unless-stopped
+    networks:
+      - mds-docker
+    ports:
+      - "2181:2181"
+
+  mds-kafka:
+    image: wurstmeister/kafka:2.12-2.5.1
+    container_name: mds-kafka
+    networks:
+      - mds-docker
+    hostname: mds-docker
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+      - "29092:29092"
+    depends_on:
+      - mds-zookeeper
+    restart: unless-stopped
+    volumes:
+      - ./certs:/certs
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: mds-zookeeper:2181
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_LISTENERS: PLAINTEXT://:9092,SSL://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,SSL://localhost:9093
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_CREATE_TOPICS: "CSG-MASIMO-DEVICE:1:1"
+      KAFKA_SSL_KEYSTORE_LOCATION: '/certs/kafka.keystore.jks'
+      KAFKA_SSL_KEYSTORE_PASSWORD: 'deadface11'
+      KAFKA_SSL_KEY_PASSWORD: 'deadface11'
+      KAFKA_SSL_TRUSTSTORE_LOCATION: '/certs/kafka.truststore.jks'
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: 'deadface11'
+      KAFKA_SSL_CLIENT_AUTH: 'none'
+      KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: ''
+      KAFKA_SECURITY_INTER_BROKER_PROTOCOL: 'SSL'
+      LOG4J_LOGGER_KAFKA_AUTHORIZER_LOGGER: DEBUG, authorizerAppender
