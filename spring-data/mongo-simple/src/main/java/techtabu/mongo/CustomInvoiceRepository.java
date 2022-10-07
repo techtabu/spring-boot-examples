@@ -39,6 +39,10 @@ public class CustomInvoiceRepository {
             log.info("found: {}, but updated: {}", result.getMatchedCount(), result.getModifiedCount());
         }
 
-        return invoiceRepository.findByInvoiceNumber(invoiceNumber);
+        // I should be able to do this, but for keep the next line until tested.
+        Invoice invoice = mongoTemplate.findOne(query, Invoice.class);
+
+        return invoice;
+//        return invoiceRepository.findByInvoiceNumber(invoiceNumber);
     }
 }
