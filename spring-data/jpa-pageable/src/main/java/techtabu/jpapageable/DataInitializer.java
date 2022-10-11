@@ -1,13 +1,10 @@
 package techtabu.jpapageable;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Component;
 import techtabu.jpapageable.customer.Customer;
 import techtabu.jpapageable.customer.CustomerRepository;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;

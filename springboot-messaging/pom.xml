@@ -8,4 +8,9 @@
     <packaging>pom</packaging>
 
     <name>springboot-messaging</name>
+
+    <modules>
+        <module>spring-boot-kafka</module>
+        <module>spring-boot-kafka-ssl</module>
+    </modules>
 </project>
