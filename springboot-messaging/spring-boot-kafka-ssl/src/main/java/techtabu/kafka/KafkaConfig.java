@@ -1,6 +1,7 @@
 package techtabu.kafka;
 
 import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,9 @@ import java.io.IOException;
 @EnableKafka
 public class KafkaConfig {
 
+    @Value("${techtabu.messaging.topic:kafka-ssl-topic}")
+    private String topic;
+
     private final KafkaProperties kafkaProperties;
 
     public KafkaConfig(KafkaProperties kafkaProperties) {
@@ -29,7 +33,7 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic topicByBoot() {
-        return TopicBuilder.name("topic_By_boot").build();
+        return TopicBuilder.name(topic).build();
     }
 
     @Bean("kafkaListenerFactory")
