@@ -1,0 +1,18 @@
+server:
+  port: 8777
+
+spring:
+  application:
+    name: hazelcast-kubernetes
+  datasource:
+    url: jdbc:h2:file:./target/db/hazelcast;
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+
+cache:
+  client:
+    cluster-name: sbe-cache
+    hosts: 127.0.0.1:5701,127.0.0.1:5702,127.0.0.1:5703
+    connection-timeout: 3000
