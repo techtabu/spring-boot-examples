@@ -67,6 +67,5 @@ services:
     networks:
       - sbe-network
     environment:
-      SPRING-BOOT_RUN_PROFILES: docker
-      SPRING_PROFILES_ACTIVE: docker
+      CACHE_CLIENT_HOSTS: sbe-hazelcast
 

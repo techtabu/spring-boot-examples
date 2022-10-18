@@ -18,14 +18,14 @@ cache:
     hosts: 127.0.0.1:5701,127.0.0.1:5702,127.0.0.1:5703
     connection-timeout: 3000
 
----
-spring:
-  config:
-    name: docker
-    activate:
-      on-profile: docker
-
-cache:
-  client:
-    hosts: sbe-hazelcast:5701,sbe-hazelcast-2:5701,sbe-hazelcast-3:5703
+#---
+#spring:
+#  config:
+#    name: docker
+#    activate:
+#      on-profile: docker
+#
+#cache:
+#  client:
+#    hosts: sbe-hazelcast:5701,sbe-hazelcast-2:5701,sbe-hazelcast-3:5703
 
