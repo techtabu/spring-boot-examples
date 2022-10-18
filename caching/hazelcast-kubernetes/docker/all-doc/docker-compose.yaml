@@ -16,7 +16,7 @@ services:
     environment:
       HZ_CLUSTERNAME: sbe-cache
       HZ_NETWORK_PORT_PORT: 5701
-      HZ_NETWORK_PUBLICADDRESS: 10.32.60.50:5701
+      HZ_NETWORK_PUBLICADDRESS: sbe-hazelcast:5701
 
   sbe-hazelcast-2:
     image: hazelcast/hazelcast:latest
@@ -29,7 +29,7 @@ services:
     environment:
       HZ_CLUSTERNAME: sbe-cache
       HZ_NETWORK_PORT_PORT: 5701
-      HZ_NETWORK_PUBLICADDRESS: 10.32.60.50:5702
+      HZ_NETWORK_PUBLICADDRESS: sbe-hazelcast-2:5701
 
   sbe-hazelcast-3:
     image: hazelcast/hazelcast:latest
@@ -42,7 +42,7 @@ services:
     environment:
       HZ_CLUSTERNAME: sbe-cache
       HZ_NETWORK_PORT_PORT: 5701
-      HZ_NETWORK_PUBLICADDRESS: 10.32.60.50:5703
+      HZ_NETWORK_PUBLICADDRESS: sbe-hazelcast-3:5701
 
   sbe-hc-mgmt:
     image: hazelcast/management-center:5.1.3
@@ -57,4 +57,16 @@ services:
       - MC_ADMIN_PASSWORD=hazelcast01
       - MC_DEFAULT_CLUSTER=sbe-cache
       - MC_DEFAULT_CLUSTER_MEMBERS=sbe-hazelcast
+
+  hc-kub:
+    image: techtabu/sbe/hazelcast-kubernetes
+    container_name: hc-kub
+    restart: unless-stopped
+    ports:
+      - "8777:8777"
+    networks:
+      - sbe-network
+    environment:
+      SPRING-BOOT_RUN_PROFILES: docker
+      SPRING_PROFILES_ACTIVE: docker
 

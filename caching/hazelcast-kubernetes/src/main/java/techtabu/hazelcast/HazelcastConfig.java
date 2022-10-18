@@ -50,14 +50,12 @@ public class HazelcastConfig {
 
         ClientConfig clientConfig = new ClientConfig();
         clientConfig.setClassLoader(Thread.currentThread().getContextClassLoader());
-//        clientConfig.setInstanceName(UUID.randomUUID().toString());
         clientConfig.setInstanceName(appName);
         clientConfig.setClusterName(clusterName);
 
         // Network Config
         log.info("Hosts: {}", hosts);
         clientConfig.getNetworkConfig()
-//                .setAddresses(List.of("127.0.0.1"))
                 .setAddresses(hosts)
                 .setConnectionTimeout(clientConnectionTimeout)
                 .setSmartRouting(true);
