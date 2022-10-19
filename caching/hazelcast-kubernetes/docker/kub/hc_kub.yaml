@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: hc-kub
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hc-kub
+  template:
+    metadata:
+      labels:
+        app: hc-kub
+    spec:
+      containers:
+        - name: hc-kub
+          image: techtabu/sbe/hazelcast-kubernetes:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8777
+          env:
+            - name: CACHE_CLIENT_HOSTS
+              value: sbe-hazelcast
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hc-kub
+  labels:
+    app: hc-kub
+spec:
+  type: NodePort
+  ports:
+    - name: hz
+      port: 8777
+      targetPort: 8777
+      nodePort: 32000
+      protocol: TCP
+  selector:
+    app: hc-kub

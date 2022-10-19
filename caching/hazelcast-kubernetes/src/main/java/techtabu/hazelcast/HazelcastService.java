@@ -5,6 +5,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -23,6 +24,10 @@ public class HazelcastService {
 
     public Book saveBook(Book book) {
         return bookRepository.save(book);
+    }
+
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
 
     @Cacheable(cacheNames = "bookByName", key = "#name", unless = "#result == null")

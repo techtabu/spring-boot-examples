@@ -3,6 +3,8 @@ package techtabu.hazelcast;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author TechTabu
  */
@@ -21,6 +23,11 @@ public class HazelcastController {
     @PostMapping
     public Book saveBook(@RequestBody Book book) {
         return service.saveBook(book);
+    }
+
+    @GetMapping("/")
+    public List<Book> getAllBooks() {
+        return service.getAllBooks();
     }
 
     @GetMapping("/name/{name}")

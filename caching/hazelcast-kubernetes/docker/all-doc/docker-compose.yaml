@@ -9,8 +9,6 @@ services:
     image: hazelcast/hazelcast:latest
     container_name: sbe-hazelcast
     restart: unless-stopped
-    ports:
-      - "5701:5701"
     networks:
       - sbe-network
     environment:
@@ -22,8 +20,6 @@ services:
     image: hazelcast/hazelcast:latest
     container_name: sbe-hazelcast-2
     restart: unless-stopped
-    ports:
-      - "5702:5701"
     networks:
       - sbe-network
     environment:
@@ -35,8 +31,6 @@ services:
     image: hazelcast/hazelcast:latest
     container_name: sbe-hazelcast-3
     restart: unless-stopped
-    ports:
-      - "5703:5701"
     networks:
       - sbe-network
     environment:
