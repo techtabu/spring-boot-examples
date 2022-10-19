@@ -1,8 +1,9 @@
 apiVersion: hazelcast.com/v1alpha1
 kind: Hazelcast
 metadata:
-  name: hazelcast-sample
+  name: sbe-hazelcast
 spec:
   clusterSize: 3
   repository: 'docker.io/hazelcast/hazelcast'
   version: 'latest'
+  clusterName: sbe-cache

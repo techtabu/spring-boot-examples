@@ -36,6 +36,12 @@ public class HazelcastConfig {
     @Value("${spring.application.name}")
     private String appName;
 
+    @Value("${cache.kubernetes.namespace:default}")
+    private String kubNamespace;
+
+    @Value("{spring.config.name}")
+    private String profile;
+
     @Bean
     public CacheManager cacheManager() {
         return new HazelcastCacheManager(createHazelcastInstance());
@@ -43,7 +49,19 @@ public class HazelcastConfig {
 
     protected HazelcastInstance createHazelcastInstance() {
         ClientConfig clientConfig = getHazelcastConfig();
-        return HazelcastClient.newHazelcastClient(clientConfig);
+        HazelcastInstance client = HazelcastClient.newHazelcastClient(clientConfig);
+
+        if ("kubernetes".equals(profile)) {
+            client.getConfig().getNetworkConfig().getJoin().getKubernetesConfig()
+                    .setEnabled(true)
+                    .setProperty("namespace", kubNamespace)
+                    .setProperty("service-name", "sbe-hazelcast");
+
+            client.getConfig().getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
+
+        }
+
+        return client;
     }
 
     protected ClientConfig getHazelcastConfig() {

@@ -18,6 +18,19 @@ cache:
     hosts: 127.0.0.1:5701,127.0.0.1:5702,127.0.0.1:5703
     connection-timeout: 3000
 
+---
+spring:
+  config:
+    name: kubernetes
+    activate:
+      on-profile: kubernetes
+cache:
+  client:
+    hosts: sbe-hazelcast
+  kubernetes:
+    namespace: default
+
+
 #---
 #spring:
 #  config:

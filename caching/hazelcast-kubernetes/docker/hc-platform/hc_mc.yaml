@@ -1,15 +1,15 @@
 apiVersion: hazelcast.com/v1alpha1
 kind: ManagementCenter
 metadata:
-  name: managementcenter-sample
+  name: sbe-hc-mgmt
 spec:
   repository: 'hazelcast/management-center'
   version: '5.1.4'
   externalConnectivity:
     type: LoadBalancer
   hazelcastClusters:
-    - address: hazelcast-sample
-      name: dev
+    - address: sbe-hazelcast
+      name: sbe-cache
   persistence:
     enabled: true
     size: 10Gi
