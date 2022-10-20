@@ -1,0 +1,37 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sbe-hazelcast
+  labels:
+    app: sbe-hazelcast
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sbe-hazelcast
+  template:
+    metadata:
+      labels:
+        app: sbe-hazelcast
+    spec:
+      containers:
+        - name: sbe-hazelcast
+          image: techtabu/sbe/embedded-hazelcast
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5701
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sbe-hazelcast
+  labels:
+    app: sbe-hazelcast
+spec:
+  type: ClusterIP
+  ports:
+    - name: hz
+      port: 5701
+      protocol: TCP
+  selector:
+    app: sbe-hazelcast

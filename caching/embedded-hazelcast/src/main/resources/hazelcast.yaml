@@ -1,0 +1,8 @@
+hazelcast:
+  cluster-name: sbe-cache
+  network:
+    join:
+      multicast:
+        enabled: false
+      kubernetes:
+        enabled: true
