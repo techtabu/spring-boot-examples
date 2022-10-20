@@ -28,6 +28,27 @@ kubectl run hazelcast-2 --image=hazelcast/hazelcast:5.1.4
 kubectl run hazelcast-3 --image=hazelcast/hazelcast:5.1.4
 ```
 
+Or simply execute,
+```shell
+cd docker/hazelcast
+docker-compouse up -d
+```
+The above stand up 3 instance of hazelcast and single instance of management center. Then you can run the 
+application with `mvn spring-boot:run`. make sure you change the following properties,
+* `HZ_NETWORK_PUBLICADDRESS` to the IP address of your computer.
+* `MC_DEFAULT_CLUSTER_MEMBERS`: IP of your computer.
+
+Or you can run all applications in docker.
+```shell
+# build the docker images
+cd hazelcast-kubernetes
+mvn clean install -Pdocker-build
+
+# stand up all in docker
+cd hazelcast-kubernetes/docker/all-doc
+docker-compose up -d
+```
+
 ### deploy via platform
 [official docs](https://docs.hazelcast.com/operator/latest/get-started)
 
@@ -54,6 +75,11 @@ kubectl -f hc_mc.yaml apply
 
 # logs
 kubectl logs pod/managementcenter-sample-0
+```
+
+start the application
+```shell
+kubectl apply -f hc_kub.yaml
 ```
 
 delete all
