@@ -6,3 +6,4 @@ hazelcast:
         enabled: false
       kubernetes:
         enabled: true
+        service-dns: sbe-hazelcast.default.svc.cluster.local

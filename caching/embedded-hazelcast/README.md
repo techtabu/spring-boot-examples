@@ -87,4 +87,31 @@ kubectl delete -f .
 This will remove all the deployments and services from kubernetes. 
 
 
+# embedded hazelcast configuration
+## Discovering members 
 
+There are two ways you can tell your hazelcast to discover members. 
+1. Use Kubernetes API
+2. Use Kubernetes DNS lookup mode
+
+If you use Kubernetes API, then you need to run additional configuration to grant permission to use Kubernetes API.
+
+On the other hand, if you use DNS look up method, it is not required. To use DNS look up mode, instead of kubernetes 
+API add following property to hazelcast.xml. 
+
+```yaml
+hazelcast:
+  network:
+      kubernetes:
+        enabled: true
+        service-dns: sbe-hazelcast.default.svc.cluster.local
+```
+
+In most of the case, the service dns is `SERVICE-NAME.NAMESPACE.svc.cluster.local`.
+
+When you are using DNS lookup, make sure `clusterIP=None` in service definition
+```yaml
+spec:
+  type: ClusterIP
+  clusterIP: None
+```
