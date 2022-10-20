@@ -15,7 +15,8 @@ Apart from the base spring boot dependencies, you need the following dependency.
 </dependency>
 ```
 
-You will also need a hazelcast.yaml file in src/main/resources directory to enable kubernetes discovery.
+You will also need a hazelcast.yaml file in src/main/resources directory which can be used to configure hazelcast 
+instance.
 ````yaml
 hazelcast:
   cluster-name: sbe-cache
@@ -26,6 +27,9 @@ hazelcast:
       kubernetes:
         enabled: true
 ````
+
+Alternatively, you can configure the server via Java. Refer to the `HazelcastConfig` class for equivalent 
+configuration. Now, hazelcast.yaml file can be found in docker directory.
 
 After that, you have to create the docker image by executing,
 ```shell

@@ -1,1 +1,14 @@
 
+spring:
+  application:
+    name: embedded-hazelcast
+
+cache:
+  cluster-name: sbe-cache
+  kubernetes:
+    namespace: default
+    service-dns: sbe-hazelcast.default.svc.cluster.local
+  diagnostic:
+    enabled: true
+
+
