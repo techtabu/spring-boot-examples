@@ -7,4 +7,9 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>caching</name>
+
+    <modules>
+        <module>embedded-hazelcast</module>
+        <module>hazelcast-kubernetes</module>
+    </modules>
 </project>
