@@ -10,10 +10,13 @@ Apart from the base spring boot dependencies, you need the following dependency.
 ```xml
 <dependency>
     <groupId>com.hazelcast</groupId>
-    <artifactId>hazelcast-all</artifactId>
+    <artifactId>hazelcast</artifactId>
     <version>${hazelcast.version}</version>
 </dependency>
 ```
+
+> **hazelcast 5.x changes**: Since hazelcast 5.x release, the hazelcast jar itself include all necessary 
+> dependencies. You don't have to use hazelcast-all or hazelcast-kubernetes jars.  
 
 You will also need a hazelcast.yaml file in src/main/resources directory which can be used to configure hazelcast 
 instance.
@@ -59,6 +62,12 @@ discovery by using Kubernetes API.
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast-kubernetes/master/rbac.yaml
 ```
+if you don't, you will get following error message,
+```
+Kubernetes API access is forbidden! Starting standalone. To use Hazelcast Kubernetes discovery, configure the required RBAC. 
+For 'default' service account in 'default' namespace execute: 
+`kubectl apply -f https://raw.githubusercontent.com/hazelcast/hazelcast/master/kubernetes-rbac.yaml`
+```
 
 Once both images are built, you can deploy applications in kubernetes by,
 ```shell
@@ -98,7 +107,8 @@ There are two ways you can tell your hazelcast to discover members.
 1. Use Kubernetes API
 2. Use Kubernetes DNS lookup mode
 
-If you use Kubernetes API, then you need to run additional configuration to grant permission to use Kubernetes API.
+If you use Kubernetes API, then you need to run additional configuration to add cluster role binding to grant 
+permission to use Kubernetes API.
 
 On the other hand, if you use DNS look up method, it is not required. To use DNS look up mode, instead of kubernetes 
 API add following property to hazelcast.xml. 
@@ -119,3 +129,39 @@ spec:
   type: ClusterIP
   clusterIP: None
 ```
+
+# hazelcast in separate namespace
+A common use case is run hazelcast in separate namespace than the namespace in which your services are running. For 
+that, first you need to create a namespace. create a file called, namespace.yaml.
+```yaml
+{
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+      "name": "hazelcast",
+      "labels": {
+        "name": "hazelcast"
+      }
+    }
+  }
+```
+then run, the command, `kubectl create -f namespace.yaml`.
+
+Then modify the hazelcast, and hc_mc.yaml files to reflect these namespace.  
+
+## running your services in different cluster in KUBERNETES_API mode
+If you want to run your services in different namespace, you have add both namespaces to cluster binding. Refer to 
+the file in `hazelcast-kubernetes/docker/temp/kubernetes-rbac-hazelcast.yaml` file. In essence you have to add this 
+section,
+```yaml
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: hazelcast
+  - kind: ServiceAccount
+    name: default
+    namespace: default
+```
+
+The first one is necessary for hazelcast members to find each other, the second one is the namespace where you run your 
+service. Both need to be able to talk to Kubernetes API to find the members and clients. 

@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: sbe-hc-mgmt
-  namespace: default
+  namespace: hazelcast
   labels:
     app: sbe-hc-mgmt
 spec:
@@ -34,7 +34,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sbe-hc-mgmt
-  namespace: default
+  namespace: hazelcast
   labels:
     app: sbe-hc-mgmt
 spec:

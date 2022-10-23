@@ -6,8 +6,11 @@ spring:
 cache:
   cluster-name: sbe-cache
   kubernetes:
+    discovery:
+      method: DNS_LOOKUP
     namespace: default
-    service-dns: sbe-hazelcast.default.svc.cluster.local
+    service-name: sbe-hazelcast
+    service-dns: ${cache.kubernetes.service-name}.${cache.kubernetes.namespace}.svc.cluster.local
   diagnostic:
     enabled: true
 

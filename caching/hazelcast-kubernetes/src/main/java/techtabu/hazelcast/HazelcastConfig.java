@@ -36,10 +36,16 @@ public class HazelcastConfig {
     @Value("${spring.application.name}")
     private String appName;
 
+    @Value("${cache.kubernetes.enabled:true}")
+    private boolean kubEnabled;
+
     @Value("${cache.kubernetes.namespace:default}")
     private String kubNamespace;
 
-    @Value("{spring.config.name}")
+    @Value("${cache.kubernetes.service-name:default}")
+    private String serviceName;
+
+    @Value("${spring.config.name}")
     private String profile;
 
     @Bean
@@ -48,20 +54,9 @@ public class HazelcastConfig {
     }
 
     protected HazelcastInstance createHazelcastInstance() {
+
         ClientConfig clientConfig = getHazelcastConfig();
-        HazelcastInstance client = HazelcastClient.newHazelcastClient(clientConfig);
-
-        if ("kubernetes".equals(profile)) {
-            client.getConfig().getNetworkConfig().getJoin().getKubernetesConfig()
-                    .setEnabled(true)
-                    .setProperty("namespace", kubNamespace)
-                    .setProperty("service-name", "sbe-hazelcast");
-
-            client.getConfig().getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
-
-        }
-
-        return client;
+        return HazelcastClient.newHazelcastClient(clientConfig);
     }
 
     protected ClientConfig getHazelcastConfig() {
@@ -72,11 +67,21 @@ public class HazelcastConfig {
         clientConfig.setClusterName(clusterName);
 
         // Network Config
-        log.info("Hosts: {}", hosts);
         clientConfig.getNetworkConfig()
-                .setAddresses(hosts)
                 .setConnectionTimeout(clientConnectionTimeout)
                 .setSmartRouting(true);
+
+        if (kubEnabled) {
+            log.info("Configuring Kubernetes client wth namespace: {} and service name: {}", kubNamespace, serviceName);
+            clientConfig.getNetworkConfig().getKubernetesConfig()
+                    .setEnabled(true)
+                    .setProperty("namespace", kubNamespace)
+                    .setProperty("service-name", serviceName);
+
+        } else {
+            log.info("Configuring non-kubernetes client with host: {}", hosts);
+            clientConfig.getNetworkConfig().setAddresses(hosts);
+        }
 
         return clientConfig;
     }

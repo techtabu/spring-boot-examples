@@ -30,11 +30,17 @@ public class HazelcastConfig {
     @Value("${spring.application.name}")
     private String appName;
 
+    @Value("${cache.kubernetes.discovery.method}")
+    private String discoveryMethod;
+
     @Value("${cache.kubernetes.namespace:default}")
     private String kubNamespace;
 
     @Value("${cache.kubernetes.service-dns}")
     private String serviceDns;
+
+    @Value("${cache.kubernetes.service-name}")
+    private String serviceName;
 
     @Value("${cache.diagnostic.enabled:true}")
     private boolean diagnosticEnabled;
@@ -47,9 +53,21 @@ public class HazelcastConfig {
         config.setInstanceName(appName + "_" + UUID.randomUUID());
 
         config.getNetworkConfig().getJoin().getKubernetesConfig()
-                .setEnabled(true)
-                .setProperty("namespace", kubNamespace)
-                .setProperty("service-dns", serviceDns);
+                .setEnabled(true);
+
+        if ("DNS_LOOKUP".equals(discoveryMethod)) {
+            log.info("configuring Kubernetes with DNS_LOOKUP, service-dns: {}, namespace: {}", serviceDns, kubNamespace);
+            config.getNetworkConfig().getJoin().getKubernetesConfig()
+                    .setProperty("service-dns", serviceDns);
+        } else if ("KUBERNETES_API".equals(discoveryMethod)) {
+            log.info("configuring Kubernetes with API: {}, namespace: {}", serviceDns, kubNamespace);
+            config.getNetworkConfig().getJoin().getKubernetesConfig()
+                    .setProperty("namespace", kubNamespace)
+                    .setProperty("service-name", serviceName);
+        } else {
+            log.error("unidentified discovery method");
+        }
+
 
         config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
 

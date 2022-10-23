@@ -28,7 +28,9 @@ cache:
   client:
     hosts: sbe-hazelcast
   kubernetes:
+    enabled: true
     namespace: default
+    service-name: sbe-hazelcast
 
 
 #---
