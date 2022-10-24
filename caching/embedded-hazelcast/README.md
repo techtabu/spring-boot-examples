@@ -147,21 +147,21 @@ that, first you need to create a namespace. create a file called, namespace.yaml
 ```
 then run, the command, `kubectl create -f namespace.yaml`.
 
-Then modify the hazelcast, and hc_mc.yaml files to reflect these namespace.  
-
-## running your services in different cluster in KUBERNETES_API mode
-If you want to run your services in different namespace, you have add both namespaces to cluster binding. Refer to 
-the file in `hazelcast-kubernetes/docker/temp/kubernetes-rbac-hazelcast.yaml` file. In essence you have to add this 
+Then modify the hazelcast.yaml, and hc_mc.yaml files to reflect this namespace (look inside docker/hc-namespace 
+directory). The file at `https://raw.githubusercontent.com/hazelcast/hazelcast-kubernetes/master/rbac.yaml` is set 
+to work with `default` namespace, you need to modify this file to update your name space. Look at 
+`docker/hc-namespace/roles/kubernetes-rbac-hazelcast.yaml` file. In essence,  you have to add this 
 section,
 ```yaml
 subjects:
   - kind: ServiceAccount
     name: default
     namespace: hazelcast
-  - kind: ServiceAccount
-    name: default
-    namespace: default
 ```
-
-The first one is necessary for hazelcast members to find each other, the second one is the namespace where you run your 
-service. Both need to be able to talk to Kubernetes API to find the members and clients. 
+Then you need to update your hosts of Network config file of your application to include the namespace. Like, 
+`<service-name>.<namespace>`
+```yaml
+cache:
+  client:
+    hosts: sbe-hazelcast.hazelcast
+```

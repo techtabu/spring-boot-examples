@@ -21,11 +21,9 @@ spec:
             - containerPort: 8777
           env:
             - name: CACHE_CLIENT_HOSTS
-              value: sbe-hazelcast
+              value: sbe-hazelcast.hazelcast
             - name: SPRING_PROFILES_ACTIVE
               value: kubernetes
-            - name: CACHE_KUBERNETES_NAMESPACE
-              value: hazelcast
 ---
 apiVersion: v1
 kind: Service

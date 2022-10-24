@@ -25,6 +25,7 @@ public class HazelcastClusterState {
     public void checkClusterState() {
         ClusterState newClusterState = hazelcastInstance.getCluster().getClusterState();
         if (newClusterState != clusterState) {
+            clusterState = newClusterState;
             log.info("""
 
                             \t ******* Hazelcast cluster state changed *****

@@ -60,14 +60,13 @@ public class HazelcastConfig {
             config.getNetworkConfig().getJoin().getKubernetesConfig()
                     .setProperty("service-dns", serviceDns);
         } else if ("KUBERNETES_API".equals(discoveryMethod)) {
-            log.info("configuring Kubernetes with API: {}, namespace: {}", serviceDns, kubNamespace);
+            log.info("configuring Kubernetes with KUBERNETES_API: {}, namespace: {}", serviceDns, kubNamespace);
             config.getNetworkConfig().getJoin().getKubernetesConfig()
                     .setProperty("namespace", kubNamespace)
                     .setProperty("service-name", serviceName);
         } else {
             log.error("unidentified discovery method");
         }
-
 
         config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
 

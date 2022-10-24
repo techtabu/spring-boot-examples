@@ -2,8 +2,6 @@ package techtabu.hazelcast;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
-import com.hazelcast.config.JoinConfig;
-import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.spring.cache.HazelcastCacheManager;
 import lombok.extern.slf4j.Slf4j;
@@ -36,17 +34,6 @@ public class HazelcastConfig {
     @Value("${spring.application.name}")
     private String appName;
 
-    @Value("${cache.kubernetes.enabled:true}")
-    private boolean kubEnabled;
-
-    @Value("${cache.kubernetes.namespace:default}")
-    private String kubNamespace;
-
-    @Value("${cache.kubernetes.service-name:default}")
-    private String serviceName;
-
-    @Value("${spring.config.name}")
-    private String profile;
 
     @Bean
     public CacheManager cacheManager() {
@@ -67,21 +54,11 @@ public class HazelcastConfig {
         clientConfig.setClusterName(clusterName);
 
         // Network Config
+        log.info("Configuring client for host: {}", hosts);
         clientConfig.getNetworkConfig()
                 .setConnectionTimeout(clientConnectionTimeout)
+                .setAddresses(hosts)
                 .setSmartRouting(true);
-
-        if (kubEnabled) {
-            log.info("Configuring Kubernetes client wth namespace: {} and service name: {}", kubNamespace, serviceName);
-            clientConfig.getNetworkConfig().getKubernetesConfig()
-                    .setEnabled(true)
-                    .setProperty("namespace", kubNamespace)
-                    .setProperty("service-name", serviceName);
-
-        } else {
-            log.info("Configuring non-kubernetes client with host: {}", hosts);
-            clientConfig.getNetworkConfig().setAddresses(hosts);
-        }
 
         return clientConfig;
     }
