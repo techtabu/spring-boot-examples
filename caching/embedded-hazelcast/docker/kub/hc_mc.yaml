@@ -38,7 +38,7 @@ metadata:
   labels:
     app: sbe-hc-mgmt
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: hz
       port: 8080

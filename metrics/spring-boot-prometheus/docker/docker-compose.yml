@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+  sbe-prometheus:
+    image: techtabu/sbe/spring-boot-prometheus
+    container_name: sbe-prometheus
+    ports:
+      - "9700:9700"
+    volumes:
+      - ./../../../data:/data
+    environment:
+      ACCOUNT_DATA_FILES_PATH: "/data/"
