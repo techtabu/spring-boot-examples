@@ -24,5 +24,12 @@ public class Account {
     private Set<Address> addresses = new HashSet<>();
     private Set<CreditCard> creditCards = new HashSet<>();
 
+    public Account(Long id, String userId, String accountNumber, boolean defaultAccount) {
+        this.id = id;
+        this.userId = userId;
+        this.accountNumber = accountNumber;
+        this.defaultAccount = defaultAccount;
+    }
+
 }
 

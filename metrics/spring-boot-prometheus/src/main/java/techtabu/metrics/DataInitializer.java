@@ -25,18 +25,6 @@ import java.util.stream.Collectors;
 @Data
 public class DataInitializer {
 
-    @Value("${account.data.files.path}")
-    String filesLocation;
-
-    @Value("${account.data.address.filename:address.json}")
-    String addressesFileName;
-
-    @Value("${account.data.creditcards.filename:creditcards.json}")
-    String creditCardsFileName;
-
-    @Value("${account.data.accounts.filename:accounts.json}")
-    String accountsFileName;
-
     ObjectMapper objectMapper = new ObjectMapper();
 
     List<Address> addresses = new ArrayList<>();
@@ -45,16 +33,34 @@ public class DataInitializer {
 
     public void populate() throws IOException {
         if (addresses.isEmpty()) {
-            addresses = Arrays.asList(objectMapper.readValue(Paths.get(filesLocation + addressesFileName).toFile(), Address[].class));
+            addresses = List.of(
+                    new Address(1001L, "142 Main Road", "", "Panama City", "USA","FL", 32405,  "SHIPPING", "account-002"),
+                    new Address(1002L, "142 Main Road", "", "Panama City", "USA","FL", 32405,  "BILLING", "account-002"),
+                    new Address(1003L, "142 Side Road", "", "Lynn Haven", "USA","FL", 32444,  "SHIPPING", "account-001"),
+                    new Address(1004L, "142 Side Road", "", "Lynn haven", "USA","FL", 32444,  "BILLING", "account-001"),
+                    new Address(1005L, "334 Wales Dr", "", "Tallahassee", "USA","FL", 32301,  "SHIPPING", "account-002"),
+                    new Address(1006L, "1421 Luther King Road", "", "Jacksonville", "USA","FL", 32227,  "BILLING", "account-001")
+            );
             addresses.forEach(a -> log.info("Address: {}", a));
         }
 
         if (creditCards.isEmpty()) {
-            creditCards = Arrays.asList(objectMapper.readValue(Paths.get(filesLocation + creditCardsFileName).toFile(), CreditCard[].class));
+            creditCards = List.of(
+                    new CreditCard(2001L, "5522-6655-8855-9966", "VISA", "account-002"),
+                    new CreditCard(2002L, "5522-6655-8855-9966", "MASTER_CARD", "account-001"),
+                    new CreditCard(2002L, "5522-4455-6534-7865", "AMERICAN_EXPRESS", "account-002"),
+                    new CreditCard(2002L, "4325-3245-2345-6547", "VISA","account-001")
+            );
         }
 
         if (accounts.isEmpty()) {
-            accounts = Arrays.asList(objectMapper.readValue(Paths.get(filesLocation + accountsFileName).toFile(), Account[].class));
+            accounts = List.of(
+                    new Account(1001L, "user-001", "account-001", true),
+                    new Account(1002L, "user-002", "account-002", true),
+                    new Account(1003L, "user-003", "account-003", true),
+                    new Account(1004L, "user-004", "account-004", true)
+
+            );
             accounts.forEach( a -> {
                 a.getAddresses().addAll(addresses.stream()
                         .filter(ad -> ad.getAccountNumber().equals(a.getAccountNumber()))

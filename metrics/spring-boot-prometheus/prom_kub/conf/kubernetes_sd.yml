@@ -1,0 +1,51 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+scrape_configs:
+  - job_name: service-kubernetes
+    kubernetes_sd_configs:
+      - role: endpoints
+        api_server: "https://localhost:1234"
+        tls_config:
+          cert_file: valid_cert_file
+          key_file: valid_key_file
+        basic_auth:
+          username: "myusername"
+          password: "mysecret"
+
+  - job_name: service-kubernetes-namespaces
+    kubernetes_sd_configs:
+      - role: endpoints
+        api_server: "https://localhost:1234"
+        namespaces:
+          names:
+            - default
+    basic_auth:
+      username: "myusername"
+      password_file: valid_password_file
+
+    # get all metrics from all pods swhich are annotated with peometheus_io_scrape: tre and have prometheus_io_path
+  - job_name: 'kubernetes-pods'
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      - source_labels: [ __meta_kubernetes_pod_annotation_prometheus_io_scrape ]
+        action: keep
+        regex: true
+      - source_labels: [ __meta_kubernetes_pod_annotation_prometheus_io_path ]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
+      - source_labels: [ __address__, __meta_kubernetes_pod_annotation_prometheus_io_port ]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target_label: __address__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - source_labels: [ __meta_kubernetes_namespace ]
+        action: replace
+        target_label: kubernetes_namespace
+      - source_labels: [ __meta_kubernetes_pod_name ]
+        action: replace
+        target_label: kubernetes_pod_name

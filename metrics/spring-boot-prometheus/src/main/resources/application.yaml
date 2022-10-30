@@ -1,13 +1,16 @@
 server:
   port: 9700
 
+spring:
+  application:
+    name: sbe-prometheus
+
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
-account:
-  data:
-    files.path: @project.basedir@/../../data/
-    address.filename: address.json

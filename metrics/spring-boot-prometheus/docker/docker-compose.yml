@@ -14,7 +14,3 @@ services:
     container_name: sbe-prometheus
     ports:
       - "9700:9700"
-    volumes:
-      - ./../../../data:/data
-    environment:
-      ACCOUNT_DATA_FILES_PATH: "/data/"
