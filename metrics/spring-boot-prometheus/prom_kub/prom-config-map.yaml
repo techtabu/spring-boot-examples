@@ -21,7 +21,7 @@ data:
       - job_name: 'kubernetes-pods'
         kubernetes_sd_configs:
           - role: pod
-      - job_name: 'kubernetes-db-pods'
+      - job_name: 'kubernetes-sb-pods'
         metrics_path: '/actuator/prometheus'
         kubernetes_sd_configs:
           - role: pod
