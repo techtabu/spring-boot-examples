@@ -60,6 +60,15 @@ spec:
             requests:
               cpu: 250m
               memory: 750Mi
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              value: admin
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: inventrio
+            - name: AWS_SDK_LOAD_CONFIG
+              value: "true"
+            - name: GF_AUTH_SIGV4_AUTH_ENABLED
+              value: "true"
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-pv

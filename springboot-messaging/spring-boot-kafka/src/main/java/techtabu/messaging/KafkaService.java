@@ -45,4 +45,8 @@ public class KafkaService {
     public void sendMessage() {
         kafkaTemplate.send("topic_By_boot", Instant.now().toString());
     }
+
+    public void send(String message) {
+        kafkaTemplate.send("tabu-playground", message);
+    }
 }
