@@ -7,20 +7,16 @@ networks:
 services:
 
   zookeeper:
-    image: zookeeper:3.4.9
+    image: zookeeper:3.8
     container_name: zookeeper
     hostname: zookeeper
     ports:
       - "2181:2181"
-#    environment:
-#      ZOO_MY_ID: 1
-#      ZOO_PORT: 2181
-#      ZOO_SERVERS: server.1=zookeeper:2888:3888
     networks:
       - doc-kafka
 
   kafka:
-    image: confluentinc/cp-kafka:5.5.1
+    image: confluentinc/cp-kafka:7.3.0
     container_name: kafka
     hostname: kafka
     ports:
@@ -42,3 +38,35 @@ services:
       - zookeeper
     networks:
       - doc-kafka
+
+  otel:
+    image: otel/opentelemetry-collector-contrib
+    container_name: otel
+    networks:
+      - doc-kafka
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4318:4318"   # OTLP http receiver
+      - "4317:4317"
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    networks:
+      - doc-kafka
+    ports:
+      - "9412:9411"
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    restart: unless-stopped
+    networks:
+      - doc-kafka
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: grafana01

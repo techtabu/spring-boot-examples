@@ -15,3 +15,13 @@ spring:
     listener:
       concurrency: 1
       ack-mode: RECORD
+  sleuth:
+    otel:
+      config:
+        trace-id-ratio-based: 1.0
+      exporter:
+        otlp:
+          enabled: true
+          endpoint: http://localhost:4317
+    baggage:
+      tag-fields: ${spring.application.name}

@@ -43,6 +43,7 @@ public class KafkaService {
 
     @Scheduled(fixedDelay = 5000)
     public void sendMessage() {
+        log.info("sending message to topic by boot");
         kafkaTemplate.send("topic_By_boot", Instant.now().toString());
     }
 
