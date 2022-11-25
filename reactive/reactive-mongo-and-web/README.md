@@ -53,5 +53,5 @@ public Flux<Customer> findAllPaginated(@RequestParam("delay") Long delay,
 
 ## testing
 To test, use the browser, instead of postman, since Postman will block until all the content is reurned.
-When you go [here](http://localhost:9875/reactive-mongo-with-web/paginated?delay=100&page=10&size=20),
+When you go [here](http://localhost:9875/reactive-mongo-with-web/paginated?delay=100&page=0&size=20),
 you will see browser will updates values as they become available one by one at 100 ms interval.
