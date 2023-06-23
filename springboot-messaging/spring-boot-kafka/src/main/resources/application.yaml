@@ -9,13 +9,13 @@ spring:
     streams:
       application-id: ${spring.application.name}
     consumer:
-      group-id: "kafka-group"
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     listener:
       concurrency: 1
       ack-mode: RECORD
   sleuth:
+    enabled: false
     otel:
       config:
         trace-id-ratio-based: 1.0

@@ -1,6 +1,7 @@
 package techtabu.messaging;
 
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -14,6 +15,8 @@ import org.springframework.kafka.support.ExponentialBackOffWithMaxRetries;
 import org.springframework.util.backoff.FixedBackOff;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author TechTabu
@@ -52,6 +55,17 @@ public class KafkaConfig {
         handler.addNotRetryableExceptions(IllegalArgumentException.class);
         factory.setCommonErrorHandler(handler);
 
+        return factory;
+    }
+
+    @Bean("batchProcessingListenerFactory")
+    public ConcurrentKafkaListenerContainerFactory<String, String> batchProcessingListenerFactory(ConsumerFactory<String, String> consumerFactory) {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "10");
+        consumerFactory.updateConfigs(props);
+        factory.setBatchListener(true);
+        factory.setConsumerFactory(consumerFactory);
         return factory;
     }
 
