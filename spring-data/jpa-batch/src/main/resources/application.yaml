@@ -1,0 +1,24 @@
+
+server:
+  port: 9775
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jpa_batch
+    username: root
+    password: Password1!
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        jdbc.batch_size: 5
+        generate_statistics: true
+#        order_inserts: true
+#        order_updates: true
+
+
