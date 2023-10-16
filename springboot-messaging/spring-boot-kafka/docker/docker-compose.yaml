@@ -39,34 +39,34 @@ services:
     networks:
       - doc-kafka
 
-  otel:
-    image: otel/opentelemetry-collector-contrib
-    container_name: otel
-    networks:
-      - doc-kafka
-    command: ["--config=/etc/otel-collector-config.yaml"]
-    volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
-    ports:
-      - "4318:4318"   # OTLP http receiver
-      - "4317:4317"
-
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    networks:
-      - doc-kafka
-    ports:
-      - "9412:9411"
-
-  grafana:
-    image: grafana/grafana-oss:latest
-    container_name: grafana
-    restart: unless-stopped
-    networks:
-      - doc-kafka
-    ports:
-      - "3000:3000"
-    environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: grafana01
+#  otel:
+#    image: otel/opentelemetry-collector-contrib
+#    container_name: otel
+#    networks:
+#      - doc-kafka
+#    command: ["--config=/etc/otel-collector-config.yaml"]
+#    volumes:
+#      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+#    ports:
+#      - "4318:4318"   # OTLP http receiver
+#      - "4317:4317"
+#
+#  zipkin:
+#    image: openzipkin/zipkin
+#    container_name: zipkin
+#    networks:
+#      - doc-kafka
+#    ports:
+#      - "9412:9411"
+#
+#  grafana:
+#    image: grafana/grafana-oss:latest
+#    container_name: grafana
+#    restart: unless-stopped
+#    networks:
+#      - doc-kafka
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      GF_SECURITY_ADMIN_USER: admin
+#      GF_SECURITY_ADMIN_PASSWORD: grafana01
