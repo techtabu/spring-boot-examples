@@ -5,12 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import techtabu.jpaprojections.customer.Customer;
-import techtabu.jpaprojections.customer.CustomerRepository;
+import org.springframework.web.bind.annotation.*;
+import techtabu.jpaprojections.customer.*;
 
 import java.util.List;
 
@@ -22,9 +18,15 @@ import java.util.List;
 @Slf4j
 public class CustomerController {
 
+    private final AddressRepository addressRepository;
+    private final AddressViewRepository addressViewRepository;
     private final CustomerRepository customerRepository;
 
-    public CustomerController(CustomerRepository customerRepository) {
+    public CustomerController(AddressRepository addressRepository,
+                              AddressViewRepository addressViewRepository,
+                              CustomerRepository customerRepository) {
+        this.addressRepository = addressRepository;
+        this.addressViewRepository = addressViewRepository;
         this.customerRepository = customerRepository;
     }
 
@@ -50,6 +52,17 @@ public class CustomerController {
         return customers;
     }
 
+    @GetMapping("nameonly")
+    public Page<CustomerDTO> getCustomerNamesOnlyByFirstName(@RequestParam int page,
+                                                            @RequestParam int size,
+                                                            @RequestParam String firstName) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CustomerDTO> customers = customerRepository.findNamesOnlyByFirstName(firstName, pageable);
+        log.info("Returning {} customers out of {}", customers.getContent().size(), customers.getTotalElements());
+
+        return customers;
+    }
+
     @GetMapping("/domain")
     public List<Customer> getCustomersForDomain(@RequestParam String domain) {
         List<Customer> customers = customerRepository.getCustomersForDomain(domain);
@@ -67,5 +80,26 @@ public class CustomerController {
         log.info("Returning {} customers out of {}", customers.getContent().size(), customers.getTotalElements());
 
         return customers;
+    }
+
+    @GetMapping("/addresses")
+    public Page<Address> getAllAddresses(@RequestParam int page,
+                                          @RequestParam int size) {
+
+        Sort sort = Sort.by("city").ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Address> addresses = addressRepository.findAll(pageable);
+        log.info("Returning {} customers out of {}", addresses.getContent().size(), addresses.getTotalElements());
+        return addresses;
+    }
+
+    @GetMapping("/address/{state}")
+    public List<AddressDTO> getCitiesForState(@PathVariable("state") String state) {
+        return addressRepository.findDistinctByState(state);
+    }
+
+    @GetMapping("/address-view")
+    public List<AddressView> getAllAddressView() {
+        return addressViewRepository.getAllAddressViews();
     }
 }

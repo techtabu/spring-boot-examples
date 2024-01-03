@@ -14,9 +14,11 @@ import java.util.List;
  * @author TechTabu
  */
 @Repository
-public interface CustomerRepository extends PagingAndSortingRepository<Customer, Integer>, CrudRepository<Customer, Integer> {
+public interface CustomerRepository extends PagingAndSortingRepository<Customer, String>, CrudRepository<Customer, String> {
 
     Page<Customer> findAllByFirstName(String firstName, Pageable pageable);
+
+    Page<CustomerDTO> findNamesOnlyByFirstName(String firstName, Pageable pageable);
 
     @Query("SELECT c FROM customer c where c.email LIKE %:domain")
     List<Customer> getCustomersForDomain(@Param("domain") String domain);

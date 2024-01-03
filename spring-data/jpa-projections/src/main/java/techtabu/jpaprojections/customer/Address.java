@@ -9,33 +9,25 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-
 /**
  * @author TechTabu
  */
 
-@Entity(name = "customer")
-@Table(name = "customer")
+@Entity(name = "address")
+@Table(name = "address")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Builder
-public class Customer {
+public class Address {
 
     @Id
     private String id;
 
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
-
-    private String customerNumber;
-    private String email;
-
-    private String addressId;
+    private String street;
+    private String city;
+    private String state;
 
     @PrePersist
     public void setId() {

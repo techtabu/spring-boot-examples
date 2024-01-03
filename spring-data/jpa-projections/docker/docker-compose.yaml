@@ -1,0 +1,19 @@
+version: '3.9'
+
+networks:
+  jpa-proj:
+    name: jpa-proj
+
+services:
+  jpa-pg:
+    image: postgres:15
+    container_name: jpa-pg
+    restart: unless-stopped
+    networks:
+      - jpa-proj
+    ports:
+      - "5542:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres

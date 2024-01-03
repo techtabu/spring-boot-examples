@@ -1,6 +1,24 @@
 server:
   port: 8563
 
+data:
+  initialize: true
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5542/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+
+
+
+---
 spring:
   datasource:
     url: jdbc:h2:file:./target/db/jpa_projections;
@@ -8,6 +26,8 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
+  config:
+    activate:
+      on-profile: h2
 
-data:
-  initialize: true
