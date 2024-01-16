@@ -1,0 +1,70 @@
+[
+  {
+    "id": "",
+    "firstName": "Lionel",
+    "lastName": "Messi",
+    "libBooks": [
+      {
+        "title": "Domain Driven Design",
+        "author": "Erick Evans",
+        "libraryNumber": "586-PPPPi-7867"
+      },
+      {
+        "title": "Microservices Pattern",
+        "author": "Chris Richardson",
+        "libraryNumber": "8755-PPUUJI-9890"
+      }
+    ]
+  },
+  {
+    "id": "",
+    "firstName": "Christiano",
+    "lastName": "Ronaldo",
+    "libBooks": [
+      {
+        "title": "Audacity",
+        "author": "Barack Obama",
+        "libraryNumber": "980-kilo-sseo98ki"
+      },
+      {
+        "title": "Becoming",
+        "author": "Michelle Obama",
+        "libraryNumber": "980-kilo-UJIK-98i7"
+      }
+    ]
+  },
+  {
+    "id": "",
+    "firstName": "Bukayo",
+    "lastName": "Saka",
+    "libBooks": [
+      {
+        "title": "Kafka: The Definitive Guide",
+        "author": "Gwen Shapira",
+        "libraryNumber": "586-PPPPi-7867"
+      },
+      {
+        "title": "Microservices Pattern",
+        "author": "Chris Richardson",
+        "libraryNumber": "8755-PPUUJI-9890"
+      }
+    ]
+  },
+  {
+    "id": "",
+    "firstName": "Declan",
+    "lastName": "Rice",
+    "libBooks": [
+      {
+        "title": "Kafka: The Definitive Guide",
+        "author": "Gwen Shapira",
+        "libraryNumber": "586-PPPPi-7867"
+      },
+      {
+        "title": "How Google Works",
+        "author": "Eric Schmidt",
+        "libraryNumber": "8755-KUIPO-9890"
+      }
+    ]
+  }
+]

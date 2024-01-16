@@ -1,0 +1,15 @@
+server:
+  port: 9775
+
+spring:
+  application:
+    name: postgres-jsonb
+  datasource:
+    url: jdbc:postgresql://localhost:5542/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

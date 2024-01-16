@@ -1,0 +1,19 @@
+version: '3.9'
+
+networks:
+  pg-jsonb:
+    name: pg-jsonb
+
+services:
+  pg-jsonb:
+    image: postgres:15
+    container_name: pg-jsonb
+    restart: unless-stopped
+    networks:
+      - pg-jsonb
+    ports:
+      - "5542:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
