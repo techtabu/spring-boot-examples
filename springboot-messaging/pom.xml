@@ -12,5 +12,6 @@
     <modules>
         <module>spring-boot-kafka</module>
         <module>spring-boot-kafka-ssl</module>
+        <module>kafka-protobuf</module>
     </modules>
 </project>

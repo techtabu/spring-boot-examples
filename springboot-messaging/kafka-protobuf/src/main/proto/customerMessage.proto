@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "techtabu.kafka.protobuf.customer";
+option java_outer_classname = "CustomerMessage";
+
+message Customer {
+  string firstName = 1;
+  string lastName = 2;
+  string email = 3;
+}
