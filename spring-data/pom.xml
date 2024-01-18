@@ -12,6 +12,8 @@
         <module>mongo-simple</module>
         <module>jpa-pageable</module>
         <module>jpa-batch</module>
+        <module>jpa-projections</module>
+        <module>postgres-jsonb</module>
     </modules>
 
     <build>
