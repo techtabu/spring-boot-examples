@@ -1,6 +1,6 @@
 [
   {
-    "id": "",
+    "id": null,
     "firstName": "Lionel",
     "lastName": "Messi",
     "libBooks": [
@@ -14,7 +14,14 @@
         "author": "Chris Richardson",
         "libraryNumber": "8755-PPUUJI-9890"
       }
-    ]
+    ],
+    "address": {
+      "street": "15 Main street",
+      "city": "Panama City",
+      "zipcode": 32401,
+      "state": "FL",
+      "country": "USA"
+    }
   },
   {
     "id": "",
@@ -31,7 +38,14 @@
         "author": "Michelle Obama",
         "libraryNumber": "980-kilo-UJIK-98i7"
       }
-    ]
+    ],
+    "address": {
+      "street": "15 Side street",
+      "city": "Tallahassee",
+      "zipcode": 32881,
+      "state": "FL",
+      "country": "USA"
+    }
   },
   {
     "id": "",
@@ -48,7 +62,14 @@
         "author": "Chris Richardson",
         "libraryNumber": "8755-PPUUJI-9890"
       }
-    ]
+    ],
+    "address": {
+      "street": "15 Dog street",
+      "city": "Orlando",
+      "zipcode": 32456,
+      "state": "FL",
+      "country": "USA"
+    }
   },
   {
     "id": "",
@@ -65,6 +86,13 @@
         "author": "Eric Schmidt",
         "libraryNumber": "8755-KUIPO-9890"
       }
-    ]
+    ],
+    "address": {
+      "street": "14 Cat street",
+      "city": "Irvine",
+      "zipcode": 45667,
+      "state": "CAL",
+      "country": "USA"
+    }
   }
 ]
