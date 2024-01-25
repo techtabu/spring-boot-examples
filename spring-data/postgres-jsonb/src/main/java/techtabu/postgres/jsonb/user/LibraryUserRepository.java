@@ -25,7 +25,8 @@ public interface LibraryUserRepository extends JpaRepository<LibraryUser, UUID> 
             ")", nativeQuery = true)
     List<LibraryUser> findByLibBooksAuthor(@Param("author") String authorName);
 
-    @Query(value = "SELECT l.first_name, l.id, l.last_name, l.lib_books, json_build_object('city', l.address -> 'city', 'state', l.address -> 'state') AS address \n" +
+    @Query(value = "SELECT l.first_name, l.id, l.last_name, l.lib_books, " +
+            "json_build_object('city', l.address -> 'city', 'state', l.address -> 'state', 'zipcode', l.address -> 'zipcode') AS address \n" +
             "FROM library_user l\n" +
             "WHERE l.address ->> 'city' = :city", nativeQuery = true)
     List<LibraryUser> getOnlySelectedFields(@Param("city") String city);

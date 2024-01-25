@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,6 +65,7 @@ public class LibraryUser {
                 .lastName(this.lastName)
                 .libBooks(new ArrayList<>(this.libBooks))
                 .address(objectMapper.readValue(this.address, Address.class))
+                .selectedFields(objectMapper.readValue(this.address, HashMap.class))
                 .build();
     }
 }

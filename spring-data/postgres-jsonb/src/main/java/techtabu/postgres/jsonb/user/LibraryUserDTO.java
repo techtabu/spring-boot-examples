@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -26,4 +27,5 @@ public class LibraryUserDTO {
     private String lastName;
     private List<Book> libBooks;
     private Address address;
+    private Map<String, Object> selectedFields;
 }
