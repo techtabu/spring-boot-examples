@@ -1,7 +1,6 @@
 package techtabu.kafka.protobuf;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +10,9 @@ import org.apache.kafka.common.header.Header;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import techtabu.kafka.protobuf.customer.CustomerMessage.Customer;
+import techtabu.kafka.protobuf.customer.CustomerRepository;
 
 import java.nio.charset.StandardCharsets;
 
@@ -27,12 +26,12 @@ import java.nio.charset.StandardCharsets;
 public class KafkaProtobufService {
 
     private final KafkaTemplate<String, byte[]> kafkaTemplate;
-    private final ObjectMapper objectMapper;
+    private final CustomerRepository customerRepository;
 
     public KafkaProtobufService(KafkaTemplate<String, byte[]> kafkaTemplate,
-                                ObjectMapper objectMapper) {
+                                CustomerRepository customerRepository) {
         this.kafkaTemplate = kafkaTemplate;
-        this.objectMapper = objectMapper;
+        this.customerRepository = customerRepository;
     }
 
 
@@ -62,15 +61,15 @@ public class KafkaProtobufService {
         }
 
         log.info("customer by CR is: {}", customer.toString());
-//        log.info("Customer json: {}", objectMapper.writeValueAsString(customer.toString()));
         log.info("Customer json: {}", JsonFormat.printer().print(customer.toBuilder()));
 
         techtabu.kafka.protobuf.customer.Customer cust = new techtabu.kafka.protobuf.customer.Customer(customer);
         log.info("Customer by model CR: {}", cust);
 
+        customerRepository.save(cust);
     }
 
-    @Scheduled(fixedDelay = 5000)
+//    @Scheduled(fixedDelay = 5000)
     public void sendMessage() {
         Customer customer = Customer.newBuilder()
                 .setFirstName("Nebula")
@@ -83,7 +82,7 @@ public class KafkaProtobufService {
         kafkaTemplate.send("protobuf-topic", customer.toByteArray());
     }
 
-    @Scheduled(fixedDelay = 5000)
+//    @Scheduled(fixedDelay = 5000)
     public void sendMessageViaRecord() {
         Customer customer = Customer.newBuilder()
                 .setFirstName("Nebula")
