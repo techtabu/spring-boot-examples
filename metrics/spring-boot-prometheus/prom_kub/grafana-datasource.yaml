@@ -14,4 +14,4 @@ data:
         editable: true
         access: proxy
         orgId: 1
-        url: http://prometheus-service.monitoring.svc.cluster.local:8080
+        url: http://prometheus.monitoring.svc.cluster.local:9090
