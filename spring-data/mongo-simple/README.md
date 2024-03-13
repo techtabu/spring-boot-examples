@@ -1,6 +1,16 @@
-# Getting Started
+<!-- TOC -->
+* [App set up](#app-set-up)
+  * [`@EnableMongoRepositories`](#enablemongorepositories)
+* [connecting to mongo](#connecting-to-mongo)
+  * [`MongoDatabaseFactory`](#mongodatabasefactory)
+  * [`MongoTemplate`](#mongotemplate)
+* [Mongo db queries](#mongo-db-queries)
+  * [direct queries](#direct-queries)
+  * [spring data stuff](#spring-data-stuff)
+<!-- TOC -->
 
-# app set up
+
+# App set up
 Following configuration will create database if it does not exists,
 ```yaml
 spring:
@@ -25,7 +35,7 @@ By default, `@EnableMongoRepositories` scans the current package for any interfa
 You can use its `basePackageClasses=MyRepository.class` to safely tell Spring Data MongoDB to scan a different 
 root package by type if your project layout has multiple projects and it does not find your repositories.
 
-So, as long as I keep the application simple and all packages under root package, **I don't need** `@EnableMongoRepositories` 
+So, as long as I keep the application simple and all packages under root package, **I don't need** `@EnableMongoRepositories`
 
 # connecting to mongo
 
@@ -87,3 +97,13 @@ will return,
   }
 }
 ```
+
+# Testing App
+Execute the command,
+```shell
+mvn clean install -Pintegration
+```
+
+To do integration test, **you should have docker installed** in your machine.
+
+The above command will spin up a mongo container using testcontainers, and execute the test. 

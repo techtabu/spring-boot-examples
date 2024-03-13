@@ -32,7 +32,7 @@ spec:
           - 0
       containers:
         - name: grafana
-          image: grafana/grafana:9.1.0
+          image: grafana/grafana:10.4.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
@@ -64,11 +64,7 @@ spec:
             - name: GF_SECURITY_ADMIN_USER
               value: admin
             - name: GF_SECURITY_ADMIN_PASSWORD
-              value: inventrio
-            - name: AWS_SDK_LOAD_CONFIG
-              value: "true"
-            - name: GF_AUTH_SIGV4_AUTH_ENABLED
-              value: "true"
+              value: grafana01
           volumeMounts:
             - mountPath: /var/lib/grafana
               name: grafana-pv

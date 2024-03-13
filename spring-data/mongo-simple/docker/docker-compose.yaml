@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   mongo-simple:
-    image: mongo:5.0
+    image: mongo:5
     container_name: mongo-simple
     restart: unless-stopped
     ports:
